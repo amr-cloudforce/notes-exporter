@@ -57,6 +57,9 @@ on run argv
     set totalNotesOverall to 0
     set folderStatistics to {}
 
+    set endDate to current date
+    set startDate to endDate - (3 * days)
+
     tell application "Notes"
         set theAccounts to every account
         repeat with anAccount in theAccounts
@@ -79,7 +82,7 @@ on run argv
                     set folderTextPath to textDirectory
                 end if
 
-                set theNotes to notes of aFolder
+                set theNotes to (every note of aFolder whose creation date is greater than or equal to startDate and creation date is less than or equal to endDate)
                 set folderNoteCount to 0
                 set outputNoteCount to 0
 
